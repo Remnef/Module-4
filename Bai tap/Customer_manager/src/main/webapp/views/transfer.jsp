@@ -129,6 +129,5 @@
         $(".alert").fadeTo(2000, 500).fadeOut(1000);
     </script>
 </div>
-
 </body>
 </html>

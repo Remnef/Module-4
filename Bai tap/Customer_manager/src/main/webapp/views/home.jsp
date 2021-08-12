@@ -13,8 +13,11 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="resource/js/jquery.validate.min.js"></script>
+    <script src="/resource/js/jquery.validate.min.js"></script>
     <style>
+        h4.modal-title{
+            text-align: center!important;
+        }
         #mess{
             width: 300px;
             position: fixed;
@@ -37,10 +40,12 @@
             padding: 0px;
         }
         div.modal-header{
-            padding: 0px;
+            padding: 5px;
+            text-align: center;
         }
         label.error{
             color: red !important;
+            margin: 7px 7px 7px 50px;
         }
     </style>
 <body>
@@ -156,27 +161,27 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>User name</label>
+<%--                        <label>User name</label>--%>
                         <input type="text" name="username" class="form-control" placeholder="User Name:">
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
+<%--                        <label>Password</label>--%>
                         <input type="password" name="password" class="form-control" placeholder="Password:">
                     </div>
                     <div class="form-group">
-                        <label>Retype password</label>
+<%--                        <label>Retype password</label>--%>
                         <input type="password" name="repassword" class="form-control" placeholder="Retype Password:">
                     </div>
                     <div class="form-group">
-                        <label>Name</label>
+<%--                        <label>Name</label>--%>
                         <input type="text" name="fullName" class="form-control" placeholder="Type name:">
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
+<%--                        <label>Email</label>--%>
                         <input type="email" name="email" class="form-control" placeholder="Type email:">
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
+<%--                        <label>Phone</label>--%>
                         <input type="phone" name="phone" class="form-control" placeholder="Type email:">
                     </div>
                     <div class="form-group">
@@ -244,13 +249,13 @@
 <div id="depositModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action ="/transfer" method="post" id="deposit">
+            <form action ="/transfer" method="post" id="frmDeposit">
                 <div class="modal-header">
                     <h4 class="modal-title">Deposit</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <input class="inputPass" type="number" name="deposit" placeholder="Deposit" required>
+                    <input class="inputPass" type="text" id="deposit" name="deposit" placeholder="Deposit">
                 </div>
                 <input type="text" id="idDeposit" name="id" style="display: none">
                 <div class="modal-footer">
@@ -322,106 +327,119 @@
     $(".alert").fadeTo(2000, 500).fadeOut(1000);
 
     // validate fuction
-    $('#addModal').validate({
-        rules: {
-            username: {
-                required : true
+    $(document).ready(function () {
+        $('#frmDeposit').validate({
+            rules:{
+                "deposit":{
+                    required: true,
+                    number: true,
+                    min: 0
+                }
             },
-            password: {
-                required : true
-            },
-            repassword: {
-                required : true
-            },
-            fullname: {
-                required : true
-            },
-            email: {
-                required : true
-            },
-            phone: {
-                required : true
+            messages:{
+                "deposit":{
+                    required: "Get input.",
+                    number: "Input number.",
+                    min: "Input number > 0."
+                }
             }
-        },
-        message: {
-            username: {
-                required:"get Input!"
+        })
+
+        $('#addModal').validate({
+            rules: {
+                username: {
+                    required : true
+                },
+                password: {
+                    required : true
+                },
+                repassword: {
+                    required : true
+                },
+                fullname: {
+                    required : true
+                },
+                email: {
+                    required : true
+                },
+                phone: {
+                    required : true
+                }
             },
-            password: {
-                required : "get Input!"
-            },
-            repassword: {
-                required : "get Input!"
-            },
-            fullname: {
-                required : "get Input!"
-            },
-            email: {
-                required : "get Input!"
-            },
-            phone: {
-                required : "get Input!"
+            messages: {
+                username: {
+                    required:"get Input!"
+                },
+                password: {
+                    required : "get Input!"
+                },
+                repassword: {
+                    required : "get Input!"
+                },
+                fullname: {
+                    required : "get Input!"
+                },
+                email: {
+                    required : "get Input!"
+                },
+                phone: {
+                    required : "get Input!"
+                }
             }
-        }
+        });
+
+        $('#editModal').validate({
+            rules: {
+                name: {
+                    required : true
+                },
+                email: {
+                    required : true
+                },
+                phone: {
+                    required : true
+                },
+                salary:{
+                    required:true
+                }
+            },
+            messages: {
+                name: {
+                    required : "get Input!"
+                },
+                email: {
+                    required : "get Input!"
+                },
+                phone: {
+                    required : "get Input!"
+                },
+                salary: {
+                    required : "get Input!"
+                }
+
+            }
+        });
+
+        $('#withdraw').validate({
+            rules:{
+                withdraw:{
+                    required: true,
+                    number: true,
+                    min: 0
+                }
+            },
+            messages:{
+                withdraw:{
+                    required: "Get input.",
+                    number: "Input number.",
+                    min:"Number must be > 0."
+                }
+            }
+        })
     });
 
-    $('#editModal').validate({
-        rules: {
-            name: {
-                required : true
-            },
-            email: {
-                required : true
-            },
-            phone: {
-                required : true
-            },
-            salary:{
-                required:true
-            }
-        },
-        message: {
-            name: {
-                required : "get Input!"
-            },
-            email: {
-                required : "get Input!"
-            },
-            phone: {
-                required : "get Input!"
-            },
-            salary: {
-                required : "get Input!"
-            }
 
-        }
-    });
 
-    $('#deposit').validate({
-        rules:{
-            deposit:{
-                required: true
-            }
-        },
-        message:{
-            deposit:{
-                required: "Get input"
-            }
-        }
-    })
-
-    $('#withdraw').validate({
-        rules:{
-            withdraw:{
-                required: true
-            }
-        },
-        message:{
-            withdraw:{
-                required: "Get input"
-            }
-        }
-    })
 
 </script>
 </html>
